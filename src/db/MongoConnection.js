@@ -14,8 +14,8 @@ class MongoConnection extends Connection {
 	}
 
 	Close() {
-		return mongoose.disconnect();
-
+		mongoose.disconnect();
+		return  console.log("desconectado");
 	}
 }
 
