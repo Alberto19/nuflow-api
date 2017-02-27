@@ -13,13 +13,13 @@ class userDAO{
 					login: usuario.login,
 					password: usuario.password
 				});
-				saveUser.save((err, result)=>{
-					if(err){
-						defer.reject(err);
-					}
-					defer.resolve(result);
+				saveUser.save().then((result)=>{
 					db.Close();
-				})
+					defer.resolve(result);
+				}).catch(err =>{
+					defer.reject(err);
+					console.log('Erro: ', err);
+				});
 			return defer.promise;
 		}
 }
