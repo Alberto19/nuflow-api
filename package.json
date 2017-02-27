@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "cors": "^2.8.1",
+    "express": "^4.14.1",
+    "jsonwebtoken": "^7.3.0",
+    "method-override": "^2.3.7",
+    "mongoose": "^4.8.5",
+    "morgan": "^1.8.1",
+    "q": "^1.4.1",
+    "socket.io": "^1.7.3"
+  },
+  "name": "nuflow-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Alberto19/nuflow-api.git",
+  "author": "Alberto19 <junioralberto19@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  }
+}
