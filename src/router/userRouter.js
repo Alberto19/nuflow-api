@@ -18,7 +18,7 @@ UserRouter.post('/singUp',(req, res)=>{
 	});
 });
 
-UserRouter.post('/singIn',(req, res)=>{
+UserRouter.post('/singIn',authentication, (req, res)=>{
 	userDAO.findOne(req.body).then((result)=>{
 		token.createToken(result._doc).then((token)=>{
 			res.status(201).send({

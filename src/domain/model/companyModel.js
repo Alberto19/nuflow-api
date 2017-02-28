@@ -1,21 +1,13 @@
 'use strict'
-const mongo = require('mongoose'),
-      Schema = mongo.Schema;
+const mongo = require('mongoose');
+const Schema = mongo.Schema;
 
-module.exports = mongo.model('Company',
-  new Schema({
-    nome: {
-        type: String,
-        require: true
-        },
-    url:{
-        type: String,
-        require: true 
-    },
+
+  let companySchema = new Schema({
+    nome: {type: String,require: true},
+    url:{type: String,require: true },
     adress:{
-        coordinates: [{
-              longitude:Number,
-              latitude:Number}] 
-    }
-  })
-);
+        coordinates: [{longitude:Number, latitude:Number}] }
+  });
+
+module.exports = mongo.model('Company',companySchema);

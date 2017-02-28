@@ -7,12 +7,9 @@ let secretKey = require('../../config').secretKey;
 
 
 Authentication.use((req, res, next) => {
-	console.log("Somebody just came to our app!");
 
 	// var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 	let token = req.query['x-access-token'] || req.headers['x-access-token'];
-
-	console.log("token: " + token);
 
 	// check if token exist
 	if (token) {

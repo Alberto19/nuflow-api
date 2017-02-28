@@ -10,12 +10,11 @@ class MongoConnection extends Connection {
 	}
 
 	Connect() {
-		return mongoose.connect(this.GetStringConnection(), console.log('MondoDB started'));
+		return mongoose.connect(this.GetStringConnection());
 	}
 
 	Close() {
-		mongoose.disconnect();
-		return  console.log("desconectado");
+		return mongoose.disconnect();
 	}
 }
 
