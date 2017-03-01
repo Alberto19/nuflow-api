@@ -3,7 +3,7 @@ let db = require('../../db/MongoConnection');
 let q = require('q');
 let UserModel = require('../model/userModel');
 
-class userDAO {
+class UserDAO {
 
 	persist(usuario) {
 		var defer = q.defer();
@@ -52,4 +52,4 @@ class userDAO {
 		return defer.promise;
 	}
 }
-module.exports = new userDAO();
+module.exports = new UserDAO();
