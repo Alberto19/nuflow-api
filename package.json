@@ -10,6 +10,8 @@
     "mongoose": "^4.8.5",
     "morgan": "^1.8.1",
     "q": "^1.4.1",
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1",
     "socket.io": "^1.7.3"
   },
   "name": "nuflow-api",
