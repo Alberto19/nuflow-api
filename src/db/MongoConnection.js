@@ -5,16 +5,21 @@ const config = require('../../config');
 const Connection = require('./Connection');
 class MongoConnection extends Connection {
 
+
 	GetStringConnection() {
 		return config.database; // connect to database
 	}
 
 	Connect() {
-		return mongoose.createConnection(this.GetStringConnection());
+		mongoose.Promise = global.Promise
+		mongoose.connect(this.GetStringConnection());
+		return mongoose.connection;
 	}
 
 	Close() {
-		return mongoose.disconnect();
+		mongoose.connection.db.close();
+		console.log('conection close');
+		return 
 	}
 }
 
