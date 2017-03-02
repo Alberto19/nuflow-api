@@ -11,15 +11,15 @@ class MongoConnection extends Connection {
 	}
 
 	Connect() {
+		var db;
 		mongoose.Promise = global.Promise
 		mongoose.connect(this.GetStringConnection());
-		return mongoose.connection;
+		db = mongoose.connection;
+		return db; 
 	}
 
 	Close() {
-		mongoose.connection.db.close();
-		console.log('conection close');
-		return 
+		return mongoose.connection;
 	}
 }
 

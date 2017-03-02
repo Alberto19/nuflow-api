@@ -2,6 +2,8 @@
 let db = require('../../db/MongoConnection');
 let q = require('q');
 let UserModel = require('../model/userModel');
+var mongoose = require('mongoose');    
+
 
 class UserDAO {
 
@@ -27,7 +29,20 @@ class UserDAO {
 
 	findOne(usuario) {
 		var defer = q.defer();
-		db.Connect();
+
+
+		var uri = 'mongodb://junior:190896@ds113000.mlab.com:13000/heroku_kqgvqtrf';
+
+		mongoose.Promise = global.Promise
+
+		mongoose.connect(uri);
+
+		var db = mongoose.connection;
+		db.on('error', console.error.bind(console, 'connection error:'));
+
+		db.once('open', function callback () {
+
+	
 		UserModel
 			.findOne({
 				login: usuario.login
@@ -46,9 +61,11 @@ class UserDAO {
 						defer.resolve(user);
 					}
 				}
-				db.Close();
+				 mongoose.connection.db.close(function (err) {
+           			 if(err) throw err;
+         		 });
 			});
-
+		});
 		return defer.promise;
 	}
 }
