@@ -1,5 +1,5 @@
 'use strict'
-let db = require('../../db/MongoConnection');
+let banco = require('../../db/MongoConnection');
 let q = require('q');
 let CompanyModel = require('../model/companyModel');
 
@@ -10,7 +10,9 @@ class CompanyDAO{
     persist(company) {
 
 		var defer = q.defer();
-		db.Connect();
+		let con = banco.Connect();
+		con.on('error', console.error.bind(console, 'connection error:'));
+		con.once('open', function callback() {
 		let saveCompany = new CompanyModel({
             name: company.name,
             adress: company.adress,
@@ -27,13 +29,14 @@ class CompanyDAO{
 		saveCompany
 			.save()
 			.then((result) => {
-				db.Close();
+				banco.Close();
 				defer.resolve(result);
 			})
 			.catch(err => {
 				defer.reject(err);
 				console.log('Erro: ', err);
 			});
+		});
 		return defer.promise;
 	}
 

@@ -1,70 +1,61 @@
 'use strict'
-let db = require('../../db/MongoConnection');
+let banco = require('../../db/MongoConnection');
 let q = require('q');
 let UserModel = require('../model/userModel');
-var mongoose = require('mongoose');    
+var mongoose = require('mongoose');
 
 
 class UserDAO {
 
 	persist(usuario) {
 		var defer = q.defer();
-		db.Connect();
-		let saveUser = new UserModel({
-			login: usuario.login,
-			password: usuario.password
-		});
-		saveUser
-			.save()
-			.then((result) => {
-				db.Close();
-				defer.resolve(result);
-			})
-			.catch(err => {
-				defer.reject(err);
-				console.log('Erro: ', err);
+		let con = banco.Connect();
+		con.on('error', console.error.bind(console, 'connection error:'));
+
+		con.once('open', function callback() {
+			let saveUser = new UserModel({
+				login: usuario.login,
+				password: usuario.password
 			});
+			saveUser
+				.save()
+				.then((result) => {
+					banco.Close();
+					defer.resolve(result);
+				})
+				.catch(err => {
+					defer.reject(err);
+					console.log('Erro: ', err);
+				});
+		});
 		return defer.promise;
 	}
 
 	findOne(usuario) {
 		var defer = q.defer();
-
-
-		var uri = 'mongodb://junior:190896@ds113000.mlab.com:13000/heroku_kqgvqtrf';
-
-		mongoose.Promise = global.Promise
-
-		mongoose.connect(uri);
-
-		var db = mongoose.connection;
-		db.on('error', console.error.bind(console, 'connection error:'));
-
-		db.once('open', function callback () {
-
-	
-		UserModel
-			.findOne({
-				login: usuario.login
-			})
-			.select('login password')
-			.exec((err, user) => {
-				if (err) {
-					defer.reject("Erro ao procurar usuario");
-				} else if (!user) {
-					defer.reject("User doesn't exist");
-				} else if (user) {
-					let validPass = user.comparePassword(usuario.password);
-					if (!validPass) {
-						defer.reject("Invalid Password");
-					} else {
-						defer.resolve(user);
+		let con = banco.Connect();
+		con.on('error', console.error.bind(console, 'connection error:'));
+		con.once('open', function callback() {
+			UserModel
+				.findOne({
+					login: usuario.login
+				})
+				.select('login password')
+				.exec((err, user) => {
+					if (err) {
+						defer.reject("Erro ao procurar usuario");
+					} else if (!user) {
+						defer.reject("User doesn't exist");
+					} else if (user) {
+						let validPass = user.comparePassword(usuario.password);
+						if (!validPass) {
+							defer.reject("Invalid Password");
+						} else {
+							defer.resolve(user);
+						}
 					}
-				}
-				 mongoose.connection.db.close(function (err) {
-           			 if(err) throw err;
-         		 });
-			});
+					banco.Close();
+				});
 		});
 		return defer.promise;
 	}
