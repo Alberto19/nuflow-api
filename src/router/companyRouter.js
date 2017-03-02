@@ -14,4 +14,16 @@ CompanyRouter.post('/create',(req, res)=>{
 	});
 });
 
+CompanyRouter.post('/createAll',(req, res)=>{
+	CompanyDAO.persistAll(req.body).then((result)=>{
+			res.status(201).send({
+				message: 'success'
+			});
+	}).catch((err)=>{
+		res.status(500).json("Erro interno");
+	});
+	
+});
+
+
 module.exports = CompanyRouter;
