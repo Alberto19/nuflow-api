@@ -10,7 +10,7 @@ class MongoConnection extends Connection {
 	}
 
 	Connect() {
-		return mongoose.connect(this.GetStringConnection());
+		return mongoose.createConnection(this.GetStringConnection());
 	}
 
 	Close() {
