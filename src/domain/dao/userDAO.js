@@ -10,7 +10,7 @@ class UserDAO {
 	persist(usuario) {
 		var defer = q.defer();
 		let con = banco.Connect();
-		con.on('error', ()=>{
+		con.on('error', () => {
 			banco.Close();
 		});
 
@@ -36,7 +36,7 @@ class UserDAO {
 	findOne(usuario) {
 		var defer = q.defer();
 		let con = banco.Connect();
-		con.on('error', ()=>{
+		con.on('error', () => {
 			banco.Close();
 		});
 		con.once('open', function callback() {
@@ -47,13 +47,22 @@ class UserDAO {
 				.select('login password')
 				.exec((err, user) => {
 					if (err) {
-						defer.reject("Erro ao procurar usuario");
+						defer.reject({
+							status: 500,
+							message: "Erro ao procurar usuario"
+						});
 					} else if (!user) {
-						defer.reject("User doesn't exist");
+						defer.reject({
+							status: 404,
+							message: "User doesn't exist"
+						});
 					} else if (user) {
 						let validPass = user.comparePassword(usuario.password);
 						if (!validPass) {
-							defer.reject("Invalid Password");
+							defer.reject({
+								status: 401,
+								message: "Invalid Password"
+							});
 						} else {
 							defer.resolve(user);
 						}

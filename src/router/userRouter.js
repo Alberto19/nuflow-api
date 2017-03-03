@@ -28,7 +28,7 @@ UserRouter.post('/singIn', (req, res)=>{
 
 		});
 	}).catch((err)=>{
-		res.status(500).json("Erro interno");
+		res.status(err.status).json(err.message);
 	});
 });
 
