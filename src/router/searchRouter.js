@@ -11,9 +11,7 @@ SearchRouter.post('/places', (req, res) => {
 
 	searchDAO.findAll(location, radius, keyword)
 		.then((result) => {
-			res.status(201).send({
-				response: result
-			})
+			res.status(201).send(result);
 
 		})
 });
