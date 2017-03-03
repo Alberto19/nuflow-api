@@ -10,7 +10,9 @@ class CompanyDAO{
     persist(company) {
 		var defer = q.defer();
 		let con = banco.Connect();
-		con.on('error', console.error.bind(console, 'connection error:'));
+		con.on('error', ()=>{
+			banco.Close();
+		});
 		con.once('open', function callback() {
 		let saveCompany = new CompanyModel({
             name: company.name,

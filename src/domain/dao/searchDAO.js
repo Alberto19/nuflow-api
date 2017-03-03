@@ -9,7 +9,9 @@ class SearchDAO {
 	findAll(location, radius, keyword) {
 		var defer = q.defer();
 		let con = banco.Connect();
-		con.on('error', console.error.bind(console, 'connection error:'));
+		con.on('error', ()=>{
+			banco.Close();
+		});
 		con.once('open', ()=> {
 			// CompanyModel.find({name:/^C/, location:{$near:[-23.5167093,-46.5093445],$maxDistance:1}})
 			CompanyModel.find({name:{ $regex : `^${keyword}` }, location:{$near:location,$maxDistance:radius}})

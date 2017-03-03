@@ -10,7 +10,9 @@ class UserDAO {
 	persist(usuario) {
 		var defer = q.defer();
 		let con = banco.Connect();
-		con.on('error', console.error.bind(console, 'connection error:'));
+		con.on('error', ()=>{
+			banco.Close();
+		});
 
 		con.once('open', function callback() {
 			let saveUser = new UserModel({
@@ -34,7 +36,9 @@ class UserDAO {
 	findOne(usuario) {
 		var defer = q.defer();
 		let con = banco.Connect();
-		con.on('error', console.error.bind(console, 'connection error:'));
+		con.on('error', ()=>{
+			banco.Close();
+		});
 		con.once('open', function callback() {
 			UserModel
 				.findOne({
