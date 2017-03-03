@@ -53,8 +53,7 @@ class CompanyDAO{
 						site: company[i].site,
 						photos: company[i].photos,
 						reviews: company[i].reviews,
-						lat: company[i].lat, 
-						lon: company[i].lon,
+						location: company[i].location,
 						mapsUrl: company[i].mapsUrl,
 						days: company[i].days
 					});

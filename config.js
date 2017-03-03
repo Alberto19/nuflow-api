@@ -6,3 +6,5 @@ module.exports = {
     "googleApiKey": "AIzaSyCyLaT3BY_wnQ-JUmdQkzBve6SMeraAxjc",
     "googleTypes": "night_club|bar"
 };
+
+

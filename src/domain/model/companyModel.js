@@ -11,8 +11,7 @@ const Schema = mongo.Schema;
     site:{type: String},
     photos:[],
     reviews:[],
-    lat:{type: Number, required: true}, 
-    lon:{type: Number, required: true},
+    location: {type: [Number],index:'2d'},
     mapsUrl:{type:String},
     days:[]
   });
