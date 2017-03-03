@@ -68,8 +68,6 @@ class CompanyDAO{
 			return defer.promise;
 	}
 
-
-    
 }
 
 module.exports = new CompanyDAO();

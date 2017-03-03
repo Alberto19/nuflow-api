@@ -1,7 +1,7 @@
 "use strict"
 
 let app = require('express')();
-let authentication = require('./authentication');
+let authentication = require('../tools/authentication');
 
 let userRouter = require('./userRouter');
 let searchRouter = require('./searchRouter');

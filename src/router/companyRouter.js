@@ -1,8 +1,7 @@
 'use strict'
 let CompanyRouter = require('express').Router();
 let CompanyDAO = require('../domain/dao/companyDAO');
-let token = require('./token');
-let authentication = require('./authentication');
+let authentication = require('../tools/authentication');
 
 CompanyRouter.post('/create',(req, res)=>{
 	CompanyDAO.persist(req.body).then((result)=>{

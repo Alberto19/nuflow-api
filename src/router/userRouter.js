@@ -1,8 +1,8 @@
 'use strict'
 let UserRouter = require('express').Router();
 let UserDAO = require('../domain/dao/userDAO');
-let token = require('./token');
-let authentication = require('./authentication');
+let token = require('../tools/token');
+
 
 UserRouter.post('/singUp',(req, res)=>{
 	UserDAO.persist(req.body).then((result)=>{
