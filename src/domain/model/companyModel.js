@@ -13,7 +13,8 @@ const Schema = mongo.Schema;
     reviews:[],
     location: {type: [Number],index:'2d'},
     mapsUrl:{type:String},
-    days:[]
+    days:[],
+    uf:{type: String,require: true}
   });
 
 module.exports = mongo.model('Company',companySchema);
